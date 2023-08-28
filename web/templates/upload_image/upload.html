@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+
+{% block content %}
+
+
+
+<script type="text/javascript">
+
+function previewImage(targetObj, view_area, filenameid) {
+    var preview = document.getElementById(view_area); //div id
+    var fileName = document.getElementById(filenameid);
+
+    var files = targetObj.files;
+        for ( var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        var imageType = /image.*/; //이미지 파일일경우만 뿌려준다.
+        if (!file.type.match(imageType))
+            continue;
+        var prevImg = document.getElementById("prev_" + view_area); //이전에 미리보기가 있다면 삭제
+        if (prevImg) {
+            preview.removeChild(prevImg);
+        }
+
+        var refImg = document.getElementById(view_area+'_ref');
+        if (refImg){
+            document.getElementById(view_area+'_ref').style.display = "none"; // hide
+        }
+
+        fileName.textContent = file.name;
+
+        var img = document.createElement("img");
+        img.id = "prev_" + view_area;
+        img.classList.add("obj");
+        img.file = file;
+        img.style.width = '300px';
+        img.style.height = 'auto';
+        preview.appendChild(img);
+
+        if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+            var reader = new FileReader();
+            reader.onloadend = (function(aImg) {
+                return function(e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        } else { // safari is not supported FileReader
+            //alert('not supported FileReader');
+            if (!document.getElementById("sfr_preview_error_"
+                    + view_area)) {
+                var info = document.createElement("p");
+                info.id = "sfr_preview_error_" + view_area;
+                info.innerHTML = "not supported FileReader";
+                preview.insertBefore(info, null);
+            }
+        }
+    }
+}
+
+function getItemType() {
+    const search_item_type = event.target.value;
+    // console.log(collar);
+
+    $.ajax({
+        url: 'search_item_type',
+        type: 'GET',
+        data: {
+            'search_item_type': search_item_type
+        },
+        datatype: 'json',
+        success: function (data){
+        }
+    })
+}
+
+</script>
+
+<!-- Target Image 사용자 업로드 -->
+
+<div class="container text-center">
+  <div class="row">
+    <nav>
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <button class="nav-item nav-link active" name="search_item_type" id="shirts-tab" data-bs-toggle="tab" data-bs-target="#shirts"  role="tab" aria-controls="shirts" aria-selected="true" value='shirts' onclick="getItemType(this)">Shirts</button>
+            <button class="nav-item nav-link" name="search_item_type" id="tshirts-tab" data-bs-toggle="tab" data-bs-target="#tshirts" role="tab" aria-controls=tshirts" aria-selected="false" value='tshirts' onclick="getItemType(this)">Tshirts</button>
+            <button class="nav-item nav-link" name="search_item_type" id="jeans-tab" data-bs-toggle="tab" data-bs-target="#jeans" role="tab" aria-controls="jeans" aria-selected="false" value='jeans' onclick="getItemType(this)">Jeans</button>
+        </div>
+    </nav>
+  </div>
+
+
+    <div class="tab-content py-3 px-3 px-sm-0" id="myTabContent">
+         <div class="tab-pane fade show active" id='shirts' role="tabpanel" aria-labelledby="shirts-tab">
+            <div class="container px-4 px-lg-5 my-5 align-items-center">
+                <form method="POST" action="{% url 'upload_image:post_clothes' %}" enctype="multipart/form-data">{% csrf_token %}
+                <center>
+                    <!-- 가운데-레퍼런스 이미지 -->
+                    <div class="upload-image" id="upload_shirt_image"></div>
+                    <img class="ref_img" id="upload_shirt_image_ref" src="{% static 'images/reference_shirts.jpg' %}" alt="..." />
+                </center>
+                <div class="container">
+                    <div class="button">
+                        <label for="chooseFile_shirt"><b>이미지 업로드</b></label>
+                    </div>
+                        <input type="file" id="chooseFile_shirt" name="user_img" accept="image/*" onchange="previewImage(this,'upload_shirt_image','fileName_shirt')"/>
+                        <div class="fileContainer">
+                            <div class="fileInput">
+                                <p> FILE NAME </p>
+                                <span class="filename" id="fileName_shirt"></span>
+                            </div>
+                        </div>
+                            <br><br><br>
+                    <div class="btn btn-dark">
+                        <input type="submit" value="확인" style="color:white;" class="btn" />
+                    </div>
+                            <br><br><br>
+                </div>
+                </form>
+            </div>
+        </div>
+
+
+         <div class="tab-pane fade " role="tabpanel" id="tshirts" aria-labelledby="tshirts-tab">
+            <div class="container px-4 px-lg-5 my-5 align-items-center">
+                <form method="POST" action="{% url 'upload_image:post_clothes' %}" enctype="multipart/form-data">{% csrf_token %}
+                    <center>
+                        <!-- 가운데-레퍼런스 이미지 -->
+                        <div class="upload-image" id="upload_tshirt_image"></div>
+                        <img class="ref_img" id='upload_tshirt_image_ref' src="{% static 'images/reference_tshirts.jpg' %}" alt="..." />
+                    </center>
+                    <div class="container">
+                        <div class="button">
+                            <label for="chooseFile_tshirt" ><b>이미지 업로드</b></label>
+                        </div>
+                            <input type="file" id="chooseFile_tshirt" name="user_img" accept="image/*" onchange="previewImage(this,'upload_tshirt_image','fileName_tshirt')"/>
+                            <div class="fileContainer">
+                                <div class="fileInput">
+                                    <p> FILE NAME </p>
+                                    <span class="filename" id="fileName_tshirt"></span>
+                                </div>
+                            </div>
+                                <br><br><br>
+                        <div class="btn btn-dark">
+                            <input type="submit" value="확인" style="color:white;" class="btn" />
+                        </div>
+                                <br><br><br>
+                    </div>
+                </form>
+            </div>
+         </div>
+
+
+         <div class="tab-pane fade" role="tabpanel" id="jeans" aria-labelledby="jeans-tab">
+             <div class="container px-4 px-lg-5 my-5 align-items-center">
+                <form method="POST" action="{% url 'upload_image:post_clothes' %}" enctype="multipart/form-data">{% csrf_token %}
+                    <center>
+                        <!-- 가운데-레퍼런스 이미지 -->
+                        <div class="upload-image" id="upload_jean_image"></div>
+                        <img class="ref_img" id='upload_jean_image_ref' src="{% static 'images/reference_jeans.jpg' %}" alt="..." />
+                    </center>
+
+                     <div class="container">
+                        <div class="button">
+                            <label for="chooseFile_jean"><b>이미지 업로드</b></label>
+                        </div>
+                            <input type="file" id="chooseFile_jean" name="user_img" accept="image/*" onchange="previewImage(this,'upload_jean_image','fileName_jean')"/>
+                            <div class="fileContainer">
+                                <div class="fileInput">
+                                    <p> FILE NAME </p>
+                                    <span class="filename" id="fileName_jean"></span>
+                                </div>
+                            </div>
+                                <br><br><br>
+                        <div class="btn btn-dark">
+                            <input type="submit" value="확인" style="color:white;" class="btn" />
+                        </div>
+                                <br><br><br>
+                    </div>
+                </form>
+
+            </div>
+        <p>종류에 맞지 않는 이미지를 넣으면 결과가 정확하지 않을 수 있습니다.</p>
+        </div>
+    </div>
+</div>
+
+
+
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+
+{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,355 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Item - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/type_form_styles.css" rel="stylesheet"/>
+
+    </head>
+
+    <body>
+
+    {% block content %}
+
+         <div class="container" >
+              <div class="row">
+                <div class="col-xs-12 ">
+                  <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                      <button class="nav-item nav-link active" id="shirts-tab" data-bs-toggle="tab" data-bs-target="#shirts"  role="tab" aria-controls="shirts" aria-selected="true">Shirts</button>
+                      <button class="nav-item nav-link" id="tshirts-tab" data-bs-toggle="tab" data-bs-target="#tshirts" role="tab" aria-controls=tshirts" aria-selected="false">Tshirts</button>
+                      <button class="nav-item nav-link" id="jeans-tab" data-bs-toggle="tab" data-bs-target="#jeans" role="tab" aria-controls="jeans" aria-selected="false">Jeans</button>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+
+            <div class="tab-content py-3 px-3 px-sm-0" id="myTabContent">
+{#                <div id="loadingImg">#}
+                    <img id="loadingImg" src="{% static 'images/loading.gif' %}"  style='position:absolute; left: 620px; top: 500px; z-index:9500; display:none;'/>
+{#                </div>#}
+<!--
+
+    Shrits
+
+-->
+                <div class="tab-pane fade show active " id="shirts" role="tabpanel" aria-labelledby="shirts-tab">
+                    <div class="content-dis">
+                        <form method="POST" action="{% url 'select_type:post_shirts' %}">{% csrf_token %}
+                            <div class="container px-4 px-lg-5 my-5">
+                                <div class="row gx-4 gx-lg-5 align-items-center">
+                                    <div class="col-md-6">
+                                        <center>
+                                            <!-- 가운데-레퍼런스 이미지 -->
+                                            <img id="referimg_shirts" class="card-img-top mb-5 mb-md-0" src="{% static 'images/reference_shirts.jpg' %}" alt="..." />
+{#                                            <h4>(GAN 이미지 준비중)</h4>#}
+                                            <div><button type="submit" value="검색" href="#result" class="btn btn-primary">검색</button></div>
+                                        </center>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <h4>Collar</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="collars" value="none" id="collar_r0" checked onclick="getShirts(event)"><label for="collar_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="collars" value="Band" id="collar_r1" onclick="getShirts(event)"><label for="collar_r1"><img class="item_img" src="{% static 'images/item_img/shirts/collars/band.png' %}"></label>
+                                                    <input type="radio" name="collars" value="Regular" id="collar_r2" onclick="getShirts(event)"><label for="collar_r2"><img class="item_img" src="{% static 'images/item_img/shirts/collars/regular.png' %}"></label>
+                                                    <input type="radio" name="collars" value="Notched" id="collar_r3" onclick="getShirts(event)"><label for="collar_r3"><img class="item_img" src="{% static 'images/item_img/shirts/collars/notched.png' %}"></label>
+                                                    <input type="radio" name="collars" value="ButtonDown" id="collar_r4" onclick="getShirts(event)"><label for="collar_r4"><img class="item_img" src="{% static 'images/item_img/shirts/collars/button_down.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h4>Pocket</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="pockets" value="none" id="pocket_r0" checked onclick="getShirts(event)"><label for="pocket_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="pockets" value="0" id="pocket_r1" onclick="getShirts(event)"><label for="pocket_r1"><img class="item_img" src="{% static 'images/item_img/shirts/pocket/0.png' %}"></label>
+                                                    <input type="radio" name="pockets" value="1" id="pocket_r2" onclick="getShirts(event)"><label for="pocket_r2"><img class="item_img" src="{% static 'images/item_img/shirts/pocket/1.png' %}"></label>
+                                                    <input type="radio" name="pockets" value="2" id="pocket_r3" onclick="getShirts(event)"><label for="pocket_r3"><img class="item_img" src="{% static 'images/item_img/shirts/pocket/2.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h4>Pattern</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="pattern" value="none" id="pattern_r0" checked  onclick="getShirts(event)"><label for="pattern_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="pattern" value="solid" id="pattern_r1" onclick="getShirts(event)"><label for="pattern_r1"><img class="item_img" src="{% static 'images/item_img/shirts/pattern/solid.png' %}"></label>
+                                                    <input type="radio" name="pattern" value="check" id="pattern_r2" onclick="getShirts(event)"><label for="pattern_r2"><img class="item_img" src="{% static 'images/item_img/shirts/pattern/check.png' %}"></label>
+                                                    <input type="radio" name="pattern" value="dot" id="pattern_r3" onclick="getShirts(event)"><label for="pattern_r3"><img class="item_img" src="{% static 'images/item_img/shirts/pattern/dot.png' %}"></label>
+                                                    <input type="radio" name="pattern" value="floral" id="pattern_r4" onclick="getShirts(event)"><label for="pattern_r4"><img class="item_img" src="{% static 'images/item_img/shirts/pattern/floral.png' %}"></label>
+                                                    <input type="radio" name="pattern" value="stripe" id="pattern_r5" onclick="getShirts(event)"><label for="pattern_r5"><img class="item_img" src="{% static 'images/item_img/shirts/pattern/stripe.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <h4>Main Color</h4>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <input type="radio" name="shirts_color" value="none" id="shirts_color_r0" checked onclick="getShirts(event)"><label for="shirts_color_r0"><img class="color_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Red" id="shirts_color_r1" onclick="getShirts(event)"><label for="shirts_color_r1"><img class="color_img" src="{% static 'images/item_img/color/red.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Orange" id="shirts_color_r2" onclick="getShirts(event)"><label for="shirts_color_r2"><img class="color_img" src="{% static 'images/item_img/color/orange.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Yellow" id="shirts_color_r3" onclick="getShirts(event)"><label for="shirts_color_r3"><img class="color_img" src="{% static 'images/item_img/color/yellow.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Chartreuse_green" id="shirts_color_r4" onclick="getShirts(event)"><label for="shirts_color_r4"><img class="color_img" src="{% static 'images/item_img/color/chartreuse_green.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Green" id="shirts_color_r5" onclick="getShirts(event)"><label for="shirts_color_r5"><img class="color_img" src="{% static 'images/item_img/color/green.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Spring_green" id="shirts_color_r6" onclick="getShirts(event)" disabled><label for="shirts_color_r6"><img class="color_img" src="{% static 'images/item_img/color/spring_green.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Cyan" id="shirts_color_r7" onclick="getShirts(event)"><label for="shirts_color_r7"><img class="color_img" src="{% static 'images/item_img/color/cyan.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Azure" id="shirts_color_r8" onclick="getShirts(event)"><label for="shirts_color_r8"><img class="color_img" src="{% static 'images/item_img/color/azure.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Blue" id="shirts_color_r9" onclick="getShirts(event)"><label for="shirts_color_r9"><img class="color_img" src="{% static 'images/item_img/color/blue.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Violet" id="shirts_color_r10" onclick="getShirts(event)"><label for="shirts_color_r10"><img class="color_img" src="{% static 'images/item_img/color/violet.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Magenta" id="shirts_color_r11" onclick="getShirts(event)"><label for="shirts_color_r11"><img class="color_img" src="{% static 'images/item_img/color/magenta.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Rose" id="shirts_color_r12" onclick="getShirts(event)"><label for="shirts_color_r12"><img class="color_img" src="{% static 'images/item_img/color/rose.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="White" id="shirts_color_r13" onclick="getShirts(event)"><label for="shirts_color_r13"><img class="color_img" src="{% static 'images/item_img/color/white.png' %}" style="border: 1px solid;"></label>
+                                                        <input type="radio" name="shirts_color" value="Gray" id="shirts_color_r14" onclick="getShirts(event)"><label for="shirts_color_r14"><img class="color_img" src="{% static 'images/item_img/color/gray.png' %}"></label>
+                                                        <input type="radio" name="shirts_color" value="Black" id="shirts_color_r15" onclick="getShirts(event)"><label for="shirts_color_r15"><img class="color_img" src="{% static 'images/item_img/color/black.png' %}"></label>
+                                                    </div>
+                                                </div>
+
+
+{#                                            <div class="col">#}
+{#                                            <h4>Sub Color</h4>#}
+{#                                                <div class="card">#}
+{#                                                    <div class="card-body">#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="none" id="shirts_color_sub_r0" checked><label for="shirts_color_sub_r0"><img class="color_img" src="{% static 'images/item_img/none.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Red" id="shirts_color_sub_r1"><label for="shirts_color_sub_r1"><img class="color_img" src="{% static 'images/item_img/color/red.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Orange" id="shirts_color_sub_r2"><label for="shirts_color_sub_r2"><img class="color_img" src="{% static 'images/item_img/color/orange.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Yellow" id="shirts_color_sub_r3"><label for="shirts_color_sub_r3"><img class="color_img" src="{% static 'images/item_img/color/yellow.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Chartreuse_green" id="shirts_color_sub_r4"><label for="shirts_color_sub_r4"><img class="color_img" src="{% static 'images/item_img/color/chartreuse_green.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Green" id="shirts_color_sub_r5"><label for="shirts_color_sub_r5"><img class="color_img" src="{% static 'images/item_img/color/green.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Spring_green" id="shirts_color_sub_r6"><label for="shirts_color_sub_r6"><img class="color_img" src="{% static 'images/item_img/color/spring_green.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Cyan" id="shirts_color_sub_r7"><label for="shirts_color_sub_r7"><img class="color_img" src="{% static 'images/item_img/color/cyan.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Azure" id="shirts_color_sub_r8"><label for="shirts_color_sub_r8"><img class="color_img" src="{% static 'images/item_img/color/azure.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Blue" id="shirts_color_sub_r9"><label for="shirts_color_sub_r9"><img class="color_img" src="{% static 'images/item_img/color/blue.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Violet" id="shirts_color_sub_r10"><label for="shirts_color_sub_r10"><img class="color_img" src="{% static 'images/item_img/color/violet.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Magenta" id="shirts_color_sub_r11"><label for="shirts_color_sub_r11"><img class="color_img" src="{% static 'images/item_img/color/magenta.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Rose" id="shirts_color_sub_r12"><label for="shirts_color_sub_r12"><img class="color_img" src="{% static 'images/item_img/color/rose.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="White" id="shirts_color_sub_r13"><label for="shirts_color_sub_r13"><img class="color_img" src="{% static 'images/item_img/color/white.png' %}" style="border: 1px solid;"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Gray" id="shirts_color_sub_r14"><label for="shirts_color_sub_r14"><img class="color_img" src="{% static 'images/item_img/color/gray.png' %}"></label>#}
+{#                                                        <input type="radio" name="shirts_color_sub" value="Black" id="shirts_color_sub_r15"><label for="shirts_color_sub_r15"><img class="color_img" src="{% static 'images/item_img/color/black.png' %}"></label>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+<!--
+
+Tshirts
+
+-->
+                <div class="tab-pane fade show" id="tshirts" role="tabpanel" aria-labelledby="tshirts-tab">
+                    <div class="content-dis">
+                        <form method="POST" action="{% url 'select_type:post_tshirts' %}">{% csrf_token %}
+                            <div class="container px-4 px-lg-5 my-5">
+                                <div class="row gx-4 gx-lg-5 align-items-center">
+                                    <div class="col-md-6">
+                                        <center>
+                                            <!-- 가운데-레퍼런스 이미지 -->
+                                            <img id="referimg_tshirts" class="card-img-top mb-5 mb-md-0" src="{% static 'images/reference_tshirts.jpg' %}" alt="..." />
+{#                                            <h4>(GAN 이미지 준비중)</h4>#}
+                                            <div><input type="submit" value="검색" class="btn btn-primary"/></div>
+                                        </center>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="row">
+                                            <h4>Printing</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="printing" value="none" id="printing_r0" checked onclick="getTshirts(event)"><label for="printing_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="printing" value="plain" id="printing_r1" onclick="getTshirts(event)"><label for="printing_r1"><img class="item_img" src="{% static 'images/item_img/tshirts/printing/plain.png' %}"></label>
+                                                    <input type="radio" name="printing" value="text" id="printing_r2" onclick="getTshirts(event)"><label for="printing_r2"><img class="item_img" src="{% static 'images/item_img/tshirts/printing/text.png' %}"></label>
+                                                    <input type="radio" name="printing" value="graphic" id="printing_r3" onclick="getTshirts(event)"><label for="printing_r3"><img class="item_img" src="{% static 'images/item_img/tshirts/printing/graphic.png' %}"></label>
+                                                    <input type="radio" name="printing" value="both" id="printing_r4" onclick="getTshirts(event)"><label for="printing_r4"><img class="item_img" src="{% static 'images/item_img/tshirts/printing/both.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h4>Neck Line</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="neckline" value="none" id="neckline_r0" checked onclick="getTshirts(event)"><label for="neckline_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="neckline" value="round" id="neckline_r1" onclick="getTshirts(event)"><label for="neckline_r1"><img class="item_img" style="opacity: 50%;" src="{% static 'images/item_img/tshirts/neckline/round.jpg' %}"></label>
+                                                    <input type="radio" name="neckline" value="vneck" id="neckline_r2" onclick="getTshirts(event)"><label for="neckline_r2"><img class="item_img" style="opacity: 50%;" src="{% static 'images/item_img/tshirts/neckline/vneck.jpg' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h4>Sleeve</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="sleeve" value="none" id="sleeve_r0" checked onclick="getTshirts(event)"><label for="sleeve_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="sleeve" value="long" id="sleeve_r1" onclick="getTshirts(event)"><label for="sleeve_r1"><img class="item_img" src="{% static 'images/item_img/tshirts/sleeve/long.png' %}"></label>
+                                                    <input type="radio" name="sleeve" value="half" id="sleeve_r2" onclick="getTshirts(event)"><label for="sleeve_r2"><img class="item_img" src="{% static 'images/item_img/tshirts/sleeve/half.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+{#                                            <div class="col">#}
+                                            <h4>Main Color</h4>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <input type="radio" name="tshirts_color" value="none" id="tshirts_color_r0" checked onclick="getTshirts(event)"><label for="tshirts_color_r0"><img class="color_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Red" id="tshirts_color_r1" onclick="getTshirts(event)"><label for="tshirts_color_r1"><img class="color_img" src="{% static 'images/item_img/color/red.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Orange" id="tshirts_color_r2" onclick="getTshirts(event)"><label for="tshirts_color_r2"><img class="color_img" src="{% static 'images/item_img/color/orange.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Yellow" id="tshirts_color_r3" onclick="getTshirts(event)"><label for="tshirts_color_r3"><img class="color_img" src="{% static 'images/item_img/color/yellow.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Chartreuse_green" id="tshirts_color_r4" onclick="getTshirts(event)"><label for="tshirts_color_r4"><img class="color_img" src="{% static 'images/item_img/color/chartreuse_green.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Green" id="tshirts_color_r5" onclick="getTshirts(event)"><label for="tshirts_color_r5"><img class="color_img" src="{% static 'images/item_img/color/green.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Spring_green" id="tshirts_color_r6" onclick="getTshirts(event)" disabled><label for="tshirts_color_r6"><img class="color_img" src="{% static 'images/item_img/color/spring_green.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Cyan" id="tshirts_color_r7" onclick="getTshirts(event)"><label for="tshirts_color_r7"><img class="color_img" src="{% static 'images/item_img/color/cyan.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Azure" id="tshirts_color_r8" onclick="getTshirts(event)"><label for="tshirts_color_r8"><img class="color_img" src="{% static 'images/item_img/color/azure.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Blue" id="tshirts_color_r9" onclick="getTshirts(event)"><label for="tshirts_color_r9"><img class="color_img" src="{% static 'images/item_img/color/blue.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Violet" id="tshirts_color_r10" onclick="getTshirts(event)"><label for="tshirts_color_r10"><img class="color_img" src="{% static 'images/item_img/color/violet.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Magenta" id="tshirts_color_r11" onclick="getTshirts(event)"><label for="tshirts_color_r11"><img class="color_img" src="{% static 'images/item_img/color/magenta.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Rose" id="tshirts_color_r12" onclick="getTshirts(event)"><label for="tshirts_color_r12"><img class="color_img" src="{% static 'images/item_img/color/rose.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="White" id="tshirts_color_r13" onclick="getTshirts(event)"><label for="tshirts_color_r13"><img class="color_img" src="{% static 'images/item_img/color/white.png' %}" style="border: 1px solid;"></label>
+                                                        <input type="radio" name="tshirts_color" value="Gray" id="tshirts_color_r14" onclick="getTshirts(event)"><label for="tshirts_color_r14"><img class="color_img" src="{% static 'images/item_img/color/gray.png' %}"></label>
+                                                        <input type="radio" name="tshirts_color" value="Black" id="tshirts_color_r15" onclick="getTshirts(event)"><label for="tshirts_color_r15"><img class="color_img" src="{% static 'images/item_img/color/black.png' %}"></label>
+                                                    </div>
+                                                </div>
+{#                                            </div>#}
+
+{#                                            <div class="col">#}
+{#                                            <h4>Sub Color</h4>#}
+{#                                                <div class="card">#}
+{#                                                    <div class="card-body">#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="none" id="tshirts_color_sub_r0" checked><label for="tshirts_color_sub_r0"><img class="color_img" src="{% static 'images/item_img/none.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Red" id="tshirts_color_sub_r1"><label for="tshirts_color_sub_r1"><img class="color_img" src="{% static 'images/item_img/color/red.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Orange" id="tshirts_color_sub_r2"><label for="tshirts_color_sub_r2"><img class="color_img" src="{% static 'images/item_img/color/orange.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Yellow" id="tshirts_color_sub_r3"><label for="tshirts_color_sub_r3"><img class="color_img" src="{% static 'images/item_img/color/yellow.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Chartreuse_green" id="tshirts_color_sub_r4"><label for="tshirts_color_sub_r4"><img class="color_img" src="{% static 'images/item_img/color/chartreuse_green.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Green" id="tshirts_color_sub_r5"><label for="tshirts_color_sub_r5"><img class="color_img" src="{% static 'images/item_img/color/green.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Spring_green" id="tshirts_color_sub_r6"><label for="tshirts_color_sub_r6"><img class="color_img" src="{% static 'images/item_img/color/spring_green.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Cyan" id="tshirts_color_sub_r7"><label for="tshirts_color_sub_r7"><img class="color_img" src="{% static 'images/item_img/color/cyan.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Azure" id="tshirts_color_sub_r8"><label for="tshirts_color_sub_r8"><img class="color_img" src="{% static 'images/item_img/color/azure.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Blue" id="tshirts_color_sub_r9"><label for="tshirts_color_sub_r9"><img class="color_img" src="{% static 'images/item_img/color/blue.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Violet" id="tshirts_color_sub_r10"><label for="tshirts_color_sub_r10"><img class="color_img" src="{% static 'images/item_img/color/violet.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Magenta" id="tshirts_color_sub_r11"><label for="tshirts_color_sub_r11"><img class="color_img" src="{% static 'images/item_img/color/magenta.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Rose" id="tshirts_color_sub_r12"><label for="tshirts_color_sub_r12"><img class="color_img" src="{% static 'images/item_img/color/rose.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="White" id="tshirts_color_sub_r13"><label for="tshirts_color_sub_r13"><img class="color_img" src="{% static 'images/item_img/color/white.png' %}" style="border: 1px solid;"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Gray" id="tshirts_color_sub_r14"><label for="tshirts_color_sub_r14"><img class="color_img" src="{% static 'images/item_img/color/gray.png' %}"></label>#}
+{#                                                        <input type="radio" name="tshirts_color_sub" value="Black" id="tshirts_color_sub_r15"><label for="tshirts_color_sub_r15"><img class="color_img" src="{% static 'images/item_img/color/black.png' %}"></label>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div><br>
+                        </form>
+                    </div>
+                </div>
+
+<!--
+
+    Jeans
+
+-->
+                <div class="tab-pane fade show" id="jeans" role="tabpanel" aria-labelledby="jeans-tab">
+                    <div class="content-dis">
+                        <form method="POST" action="{% url 'select_type:post_jeans' %}"> {% csrf_token %}
+                            <div class="container px-4 px-lg-5 my-5">
+                                <div class="row gx-4 gx-lg-5 align-items-center">
+                                    <div class="col-md-6">
+                                        <center>
+                                            <!-- 가운데-레퍼런스 이미지 -->
+                                            <img id="referimg_jeans" class="card-img-top mb-5 mb-md-0" src="{% static 'images/reference_jeans.jpg' %}" alt="..." />
+{#                                            <h4>(GAN 이미지 준비중)</h4>#}
+                                            <div><input type="submit" value="검색" class="btn btn-primary"/></div>
+                                        </center>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <h4>Fit</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="fit" value="none" id="fit_r0" checked onclick="getJeans(event)"><label for="fit_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="fit" value="regular" id="fit_r1" onclick="getJeans(event)"><label for="fit_r1"><img class="item_img" src="{% static 'images/item_img/jeans/fit/regular.png' %}"></label>
+                                                    <input type="radio" name="fit" value="skinny" id="fit_r2" onclick="getJeans(event)"><label for="fit_r2"><img class="item_img" src="{% static 'images/item_img/jeans/fit/skinny.png' %}"></label>
+                                                    <input type="radio" name="fit" value="butcut" id="fit_r3" onclick="getJeans(event)"><label for="fit_r3"><img class="item_img" src="{% static 'images/item_img/jeans/fit/butcut.png' %}"></label>
+                                                    <input type="radio" name="fit" value="wide" id="fit_r4" onclick="getJeans(event)"><label for="fit_r4"><img class="item_img" src="{% static 'images/item_img/jeans/fit/wide.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h4>Washing</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="washing" value="none" id="washing_r0" checked onclick="getJeans(event)"><label for="washing_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="washing" value="one" id="washing_r1" onclick="getJeans(event)"><label for="washing_r1"><img class="item_img" src="{% static 'images/item_img/jeans/washing/one.png' %}"></label>
+                                                    <input type="radio" name="washing" value="brush" id="washing_r2" onclick="getJeans(event)"><label for="washing_r2"><img class="item_img" src="{% static 'images/item_img/jeans/washing/brush.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h4>Damage</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="damage" value="none" id="damage_r0" checked onclick="getJeans(event)"><label for="damage_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="damage" value="damage" id="damage_r1" onclick="getJeans(event)"><label for="damage_r1"><img class="item_img" src="{% static 'images/item_img/jeans/damage/damage.png' %}"></label>
+                                                    <input type="radio" name="damage" value="nondamage" id="damage_r2" onclick="getJeans(event)"><label for="damage_r2"><img class="item_img" src="{% static 'images/item_img/jeans/damage/non-damage.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h4>Color</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="radio" name="color" value="none" id="color_r0" checked onclick="getJeans(event)"><label for="color_r0"><img class="item_img" src="{% static 'images/item_img/none.png' %}"></label>
+                                                    <input type="radio" name="color" value="LightTone" id="color_r1" onclick="getJeans(event)"><label for="color_r1"><img class="item_img" src="{% static 'images/item_img/jeans/color/light.png' %}"></label>
+                                                    <input type="radio" name="color" value="MiddleTone" id="color_r2" onclick="getJeans(event)"><label for="color_r2"><img class="item_img" src="{% static 'images/item_img/jeans/color/middle.png' %}"></label>
+                                                    <input type="radio" name="color" value="DeepTone" id="color_r3" onclick="getJeans(event)"><label for="color_r3"><img class="item_img" src="{% static 'images/item_img/jeans/color/deep.png' %}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/type_form_scripts.js' %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{% endblock %}
+
+    </body>
+</html>

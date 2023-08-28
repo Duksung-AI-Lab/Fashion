@@ -1,0 +1,19 @@
+{% load static %}
+<!-- 네비게이션바 -->
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
+    <div class="container px-4">
+{#        <a href="/" class="navbar-left"><img src="{% static 'assets/img/logo.png' %}" style="width: 50px; padding-right: 10px;"></a>#}
+{#        <a class="navbar-brand" href="/">Fashion Fruits</a>#}
+        <a class="navbar-brand" href="/">DIY Fashion Search</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'select_type:select_index' %}">Select Type</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'upload_image:upload_index' %}">Upload Image</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://github.com/Duksung-AI-Lab/clothes">GitHub</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://sites.google.com/view/dswuaiotlab">Duksung AIoT Lab</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
